@@ -222,7 +222,8 @@ def option_page():
 #     else:
 #         login_register_page()
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
+
 
 
