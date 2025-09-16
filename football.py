@@ -11,7 +11,7 @@ def find_position():
     st.text("Rate yourself between 1 and 100 for the following statistics:")
 
     stats = [
-        "Overall", "Potential", "Pace Total", "Shooting Total", "Passing Total,
+        "Overall", "Potential", "Pace Total", "Shooting Total", "Passing Total",
         "Dribbling Total", "Defending Total", "Physicality Total", "Crossing",
         "Finishing", "Freekick Accuracy", "BallControl", "Acceleration", "Reactions",
         "Balance", "Shot Power", "Stamina", "Vision", "Penalties", "Marking",
@@ -100,4 +100,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
