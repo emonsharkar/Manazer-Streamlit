@@ -13,50 +13,50 @@ import pandas as pd
 # Load the DataFrame globally
 df = pd.read_csv("fifaratings.csv")
 
-# Function to connect to MySQL database
-def connect_to_database():
-    try:
-        connection = mysql.connector.connect(
-            host='localhost',
-            database='manazer_db',
-            user='root',  # Update with your MySQL username
-            password=''  # Update with your MySQL password
-        )
-        if connection.is_connected():
-            return connection
-    except Error as e:
-        st.error(f"Error while connecting to MySQL: {e}")
-        return None
+# # Function to connect to MySQL database
+# def connect_to_database():
+#     try:
+#         connection = mysql.connector.connect(
+#             host='localhost',
+#             database='manazer_db',
+#             user='root',  # Update with your MySQL username
+#             password=''  # Update with your MySQL password
+#         )
+#         if connection.is_connected():
+#             return connection
+#     except Error as e:
+#         st.error(f"Error while connecting to MySQL: {e}")
+#         return None
 
-# Function to hash a password
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+# # Function to hash a password
+# def hash_password(password):
+#     return hashlib.sha256(password.encode()).hexdigest()
 
-# Function to register a new user
-def register_user(email, password, full_name, weight, height, age, exercise_time, bed_time, working_time, football_time):
-    try:
-        connection = connect_to_database()
-        if connection:
-            cursor = connection.cursor()
-            hashed_password = hash_password(password)  # Hash the password
-            query = """
-            INSERT INTO users (email, password, full_name, weight, height, age, exercise_time, bed_time, working_time, football_time)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """
-            data = (email, hashed_password, full_name, weight, height, age, exercise_time, bed_time, working_time, football_time)
-            cursor.execute(query, data)
-            connection.commit()
-            st.info(f"Registered user: {email}")  # Debug message
-            return True
-        else:
-            st.error("Failed to connect to the database.")
-    except Error as e:
-        st.error(f"Error while registering user: {e}")
-        return False
-    finally:
-        if connection:
-            cursor.close()
-            connection.close()
+# # Function to register a new user
+# def register_user(email, password, full_name, weight, height, age, exercise_time, bed_time, working_time, football_time):
+#     try:
+#         connection = connect_to_database()
+#         if connection:
+#             cursor = connection.cursor()
+#             hashed_password = hash_password(password)  # Hash the password
+#             query = """
+#             INSERT INTO users (email, password, full_name, weight, height, age, exercise_time, bed_time, working_time, football_time)
+#             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+#             """
+#             data = (email, hashed_password, full_name, weight, height, age, exercise_time, bed_time, working_time, football_time)
+#             cursor.execute(query, data)
+#             connection.commit()
+#             st.info(f"Registered user: {email}")  # Debug message
+#             return True
+#         else:
+#             st.error("Failed to connect to the database.")
+#     except Error as e:
+#         st.error(f"Error while registering user: {e}")
+#         return False
+#     finally:
+#         if connection:
+#             cursor.close()
+#             connection.close()
 
 # # Function to authenticate user login
 # def authenticate_user(email, password):
@@ -224,4 +224,5 @@ def option_page():
 
 if __name__ == "__main__":
     main()
+
 
