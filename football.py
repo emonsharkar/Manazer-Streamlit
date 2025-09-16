@@ -5,10 +5,10 @@ import hashlib
 import pandas as pd
 
 # Initialize session state variables if they don't exist
-if 'logged_in' not in st.session_state:
-    st.session_state['logged_in'] = False
-if 'current_user' not in st.session_state:
-    st.session_state['current_user'] = None
+# if 'logged_in' not in st.session_state:
+#     st.session_state['logged_in'] = False
+# if 'current_user' not in st.session_state:
+#     st.session_state['current_user'] = None
 
 # Load the DataFrame globally
 df = pd.read_csv("fifaratings.csv")
@@ -58,70 +58,70 @@ def register_user(email, password, full_name, weight, height, age, exercise_time
             cursor.close()
             connection.close()
 
-# Function to authenticate user login
-def authenticate_user(email, password):
-    try:
-        connection = connect_to_database()
-        if connection:
-            cursor = connection.cursor()
-            query = "SELECT * FROM users WHERE email = %s"
-            data = (email,)
-            cursor.execute(query, data)
-            user = cursor.fetchone()
-            if user:
-                # Check if password matches
-                hashed_password = hash_password(password)
-                if user[2] == hashed_password:  # Assuming password is stored as hashed in the database
-                    return user
-            return None
-    except Error as e:
-        st.error(f"Error while authenticating user: {e}")
-        return None
-    finally:
-        if connection:
-            cursor.close()
-            connection.close()
+# # Function to authenticate user login
+# def authenticate_user(email, password):
+#     try:
+#         connection = connect_to_database()
+#         if connection:
+#             cursor = connection.cursor()
+#             query = "SELECT * FROM users WHERE email = %s"
+#             data = (email,)
+#             cursor.execute(query, data)
+#             user = cursor.fetchone()
+#             if user:
+#                 # Check if password matches
+#                 hashed_password = hash_password(password)
+#                 if user[2] == hashed_password:  # Assuming password is stored as hashed in the database
+#                     return user
+#             return None
+#     except Error as e:
+#         st.error(f"Error while authenticating user: {e}")
+#         return None
+#     finally:
+#         if connection:
+#             cursor.close()
+#             connection.close()
 
-def login_register_page():
-    st.title("Login/Register")
-    option = st.radio("Select an option:", ["Login", "Register"])
+# def login_register_page():
+#     st.title("Login/Register")
+#     option = st.radio("Select an option:", ["Login", "Register"])
 
-    if option == "Login":
-        email = st.text_input("Email:")
-        password = st.text_input("Password:", type="password")
-        if st.button("Login"):
-            user = authenticate_user(email, password)
-            if user:
-                st.session_state['logged_in'] = True
-                st.session_state['current_user'] = user
-                st.success("Login Successful!")
-                st.experimental_rerun()
-            else:
-                st.error("Login Failed. Please check your credentials.")
+#     if option == "Login":
+#         email = st.text_input("Email:")
+#         password = st.text_input("Password:", type="password")
+#         if st.button("Login"):
+#             user = authenticate_user(email, password)
+#             if user:
+#                 st.session_state['logged_in'] = True
+#                 st.session_state['current_user'] = user
+#                 st.success("Login Successful!")
+#                 st.experimental_rerun()
+#             else:
+#                 st.error("Login Failed. Please check your credentials.")
 
-    elif option == "Register":
-        email = st.text_input("Email:")
-        password = st.text_input("Password:", type="password")
-        full_name = st.text_input("Full Name:")
-        weight = st.number_input("Weight (kg):")
-        height = st.text_input("Height (feet-inch):")
-        age = st.number_input("Age:")
-        exercise_time = st.number_input("Exercise Time (hours/day):")
-        bed_time = st.number_input("Bed Time (hours/day):")
-        working_time = st.number_input("Working Time (hours/day):")
-        football_time = st.number_input("Football Time (hours/day):")
-        if st.button("Register"):
-            st.info(f"Attempting to register: {email}")  # Debug message
-            if register_user(email, password, full_name, weight, height, age, exercise_time, bed_time, working_time, football_time):
-                st.success("Registration Successful!")
-            else:
-                st.error("Registration Failed. Please try again.")
+#     elif option == "Register":
+#         email = st.text_input("Email:")
+#         password = st.text_input("Password:", type="password")
+#         full_name = st.text_input("Full Name:")
+#         weight = st.number_input("Weight (kg):")
+#         height = st.text_input("Height (feet-inch):")
+#         age = st.number_input("Age:")
+#         exercise_time = st.number_input("Exercise Time (hours/day):")
+#         bed_time = st.number_input("Bed Time (hours/day):")
+#         working_time = st.number_input("Working Time (hours/day):")
+#         football_time = st.number_input("Football Time (hours/day):")
+#         if st.button("Register"):
+#             st.info(f"Attempting to register: {email}")  # Debug message
+#             if register_user(email, password, full_name, weight, height, age, exercise_time, bed_time, working_time, football_time):
+#                 st.success("Registration Successful!")
+#             else:
+#                 st.error("Registration Failed. Please try again.")
 
-# Logout function
-def logout():
-    st.session_state['logged_in'] = False
-    st.session_state['current_user'] = None
-    st.experimental_rerun()
+# # Logout function
+# def logout():
+#     st.session_state['logged_in'] = False
+#     st.session_state['current_user'] = None
+#     st.experimental_rerun()
 
 # Page for Find Position
 def find_position():
@@ -212,15 +212,16 @@ def option_page():
         find_similar_player()
     elif option == "KNOW PLAYER":
         know_player()
-    elif option == "LOGOUT":
-        logout()
+    # elif option == "LOGOUT":
+    #     logout()
 
 # Main function to run the app
-def main():
-    if st.session_state['logged_in']:
-        option_page()
-    else:
-        login_register_page()
+# def main():
+#     if st.session_state['logged_in']:
+#         option_page()
+#     else:
+#         login_register_page()
 
 if __name__ == "__main__":
     main()
+
